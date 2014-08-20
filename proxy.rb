@@ -3,7 +3,7 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-  erb 'slides.html'
+  redirect to('/slides.html')
 end
 
 get '/ajax/get_photos/:timestamp?' do
