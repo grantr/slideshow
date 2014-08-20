@@ -1,1 +1,2 @@
-web: rails s Puma
+web: bundle exec puma config.ru
+worker: bundle exec sidekiq
