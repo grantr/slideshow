@@ -41,6 +41,7 @@ gem 'puma'
 
 gem 'yajl-ruby'
 gem 'sidekiq'
+gem 'sidetiq'
 
 group :development do
   gem 'mysql2'
