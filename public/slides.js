@@ -3,20 +3,12 @@ function updateSlides() {
     lastUpdate = div.attr('data-lastupdate');
 
     if (lastUpdate == undefined) {
-      var url = '/ajax/get_photos/' + eventID;
+      var url = '/ajax/get_photos/';
     } else {
-      var url = '/ajax/get_photos/' + eventID + "/" + lastUpdate
+      var url = '/ajax/get_photos/' + lastUpdate
     }
 
     $.get(url, function(data){
-    // $.ajax({
-    //     url: url,
-    //     type: '',
-    //     crossDomain: false,
-    //     dataType: 'json'
-
-        // headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    // }).done(function(data){
         var resp = $.parseJSON(data);
         console.log(resp.objects);
         for (index = 0; index < resp.objects.length; index++) {
@@ -27,9 +19,9 @@ function updateSlides() {
               img: 'https://snapable.com/p/get/' + photo_id + '/orig'
             }
             $fotorama.push(photo);
+            //TODO remove oldest
             // caption = resp.objects[index].caption;
         }
-        //TODO remove oldest
         var slideCount = $('#fotorama img').length;
     });
 
@@ -45,9 +37,5 @@ $(document).ready(function(){
     // setup the code to do ajax calls and update the dom
     setInterval(updateSlides, 30000); // 30 sec
 
-    $('#fotorama').on('fotorama:load', function (e, fotorama, extra) {
-      console.log(extra.src + ' is loaded');
-    });
     updateSlides();
-
 });
