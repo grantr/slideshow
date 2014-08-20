@@ -1,2 +1,2 @@
-web: bundle exec puma config.ru
+web: bundle exec puma -p $PORT
 worker: bundle exec sidekiq
