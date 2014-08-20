@@ -40,6 +40,7 @@ gem 'puma'
 # gem 'debugger', group: [:development, :test]
 
 gem 'yajl-ruby'
+gem 'sidekiq'
 
 group :development do
   gem 'mysql2'
