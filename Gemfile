@@ -39,6 +39,8 @@ gem 'puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'yajl-ruby'
+
 group :development do
   gem 'mysql2'
 end
