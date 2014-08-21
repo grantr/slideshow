@@ -8,8 +8,7 @@ class InboxController < ApplicationController
         photo = Photo.new(url: url, source: 'inbox')
         photo.image = attachment.decoded_content
         photo.image_name = attachment.name
-        if photo.save
-          puts "created"
+        photo.save
       end
     end
   end
