@@ -9,5 +9,4 @@ end
 
 Sidetiq.configure do |config|
   config.utc = true
-  config.worker_history = 0
 end

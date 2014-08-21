@@ -2,14 +2,16 @@ class SnapableWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence { secondly(30) }
+  recurrence backfill: false do
+    secondly(30)
+  end
 
   def perform(last_occurrence, current_occurrence)
-    logger.debug "ZOMG performing!"
     url = "https://snapable.com/ajax/get_photos/#{ENV['EVENT_ID']}"
     if last_occurrence > 0
       url << "/#{last_occurrence}"
     end
+    logger.info "hitting #{url}"
     response = HTTParty.get(url, headers: {"X-Requested-With" => "XMLHttpRequest"})
     body = ActiveSupport::JSON.decode(response)
     body['objects'].each do |object|

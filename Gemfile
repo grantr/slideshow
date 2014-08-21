@@ -22,6 +22,7 @@ gem 'sidekiq'
 gem 'sinatra' # for sidekiq ui
 gem 'sidetiq'
 gem 'httparty'
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 group :development do
   gem 'mysql2'

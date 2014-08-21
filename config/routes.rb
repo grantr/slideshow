@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   resources :photos
   get 'slides/index'
   root 'slides#index'
