@@ -3,29 +3,24 @@ function updateSlides() {
     lastUpdate = div.attr('data-lastupdate');
 
     if (lastUpdate == undefined) {
-      var url = '/ajax/get_photos/';
+      var url = '/photos';
     } else {
-      var url = '/ajax/get_photos/' + lastUpdate
+      var url = '/photos?timestamp=' + lastUpdate;
     }
 
     $.get(url, function(data){
-        var resp = $.parseJSON(data);
-        console.log(resp.objects);
-        for (index = 0; index < resp.objects.length; index++) {
-          console.log(resp.objects[index].resource_uri);
-            var photo_id_parts = resp.objects[index].resource_uri.split('/')
-            var photo_id = photo_id_parts[photo_id_parts.length - 2];
+      console.log(data);
+        for (index = 0; index < data.length; index++) {
             photo = {
-              img: 'https://snapable.com/p/get/' + photo_id + '/orig'
+              img: data[index].url,
+              caption: data[index].caption
             }
             $fotorama.push(photo);
             //TODO remove oldest
-            // caption = resp.objects[index].caption;
         }
         var slideCount = $('#fotorama img').length;
+        div.attr('data-lastupdate', new Date().getTime() / 1000)
     });
-
-    div.attr('data-lastupdate', new Date().getTime() / 1000)
 }
 
 $(document).ready(function(){
