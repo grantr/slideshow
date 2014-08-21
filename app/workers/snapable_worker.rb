@@ -9,7 +9,7 @@ class SnapableWorker
   def perform(last_occurrence, current_occurrence)
     url = "https://snapable.com/ajax/get_photos/#{ENV['EVENT_ID']}"
     if last_occurrence > 0
-      url << "/#{last_occurrence}"
+      url << "/#{last_occurrence-60}"
     end
     logger.info "hitting #{url}"
     response = HTTParty.get(url, headers: {"X-Requested-With" => "XMLHttpRequest"})

@@ -15,7 +15,8 @@ class InstagramWorker
     body = ActiveSupport::JSON.decode(response.body)
     if body['data']
       body['data'].each do |object|
-        if object['created_time'].to_f > last_occurrence
+        # give objects two tries to be created
+        if true#object['created_time'].to_f >= (last_occurrence - 60)
           photo_url = object['images']['standard_resolution']['url']
           begin
             photo = Photo.new(url: photo_url, source: 'instagram')
