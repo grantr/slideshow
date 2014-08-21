@@ -9,10 +9,13 @@ function updateSlides() {
     }
 
     $.get(url, function(data){
-        for (index = 0; index < data.length; index++) {
+        console.log("data");
+        console.log(data);
+        photos = data.photos;
+        for (index = 0; index < photos.length; index++) {
             photo = {
-              img: data[index].url,
-              caption: data[index].caption
+              img: photos[index].url,
+              caption: photos[index].caption
             }
             $fotorama.push(photo);
             //TODO remove oldest

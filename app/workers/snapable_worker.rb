@@ -13,7 +13,7 @@ class SnapableWorker
     end
     logger.info "hitting #{url}"
     response = HTTParty.get(url, headers: {"X-Requested-With" => "XMLHttpRequest"})
-    body = ActiveSupport::JSON.decode(response)
+    body = ActiveSupport::JSON.decode(response.body)
     body['objects'].each do |object|
       photo_id = object['resource_uri'].split('/').last
       photo_url = "https://snapable.com/p/get/#{photo_id}/orig"
@@ -21,6 +21,8 @@ class SnapableWorker
 
       begin
         photo = Photo.new(url: photo_url, caption: photo_caption)
+        photo.image_url = photo_url
+
         if photo.save
           logger.info "Created photo: #{photo.inspect}"
         end

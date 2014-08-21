@@ -17,12 +17,16 @@ gem 'spring',        group: :development
 
 gem 'puma'
 
+gem 'rack-cache'
 gem 'yajl-ruby'
 gem 'sidekiq'
 gem 'sinatra' # for sidekiq ui
 gem 'sidetiq'
 gem 'httparty'
 gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'dragonfly'
+gem 'dragonfly-s3_data_store'
+gem 'active_model_serializers'
 
 group :development do
   gem 'mysql2'
