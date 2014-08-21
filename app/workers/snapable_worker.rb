@@ -24,7 +24,7 @@ class SnapableWorker
         photo.image_url = photo_url
 
         if photo.save
-          logger.info "Created photo: #{photo.inspect}"
+          logger.info "Created snapable photo: #{photo.inspect}"
         end
       rescue ActiveRecord::RecordNotUnique
         # we created this one already, no big deal

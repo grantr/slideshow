@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821060420) do
+ActiveRecord::Schema.define(version: 20140821060955) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140821060420) do
     t.boolean  "checksum"
   end
 
+  add_index "photos", ["checksum"], name: "index_photos_on_checksum", unique: true, using: :btree
   add_index "photos", ["deleted_at"], name: "index_photos_on_deleted_at", using: :btree
-  add_index "photos", ["url"], name: "index_photos_on_url", unique: true, using: :btree
 
 end

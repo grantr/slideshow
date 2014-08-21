@@ -8,7 +8,6 @@ class Photo < ActiveRecord::Base
 
   before_validation do
     self.checksum = Digest::MD5.hexdigest(image.data) if image
-    true
   end
 
 end
