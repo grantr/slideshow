@@ -14,7 +14,7 @@ class InstagramWorker
     response = HTTParty.get(url)
     body = ActiveSupport::JSON.decode(response.body)
     body['data'].each do |object|
-      if object['created_time'] > last_occurrence
+      if object['created_time'].to_f > last_occurrence
         photo_url = object['images']['standard_resolution']['url']
         begin
           photo = Photo.new(url: photo_url, source: 'instagram')
