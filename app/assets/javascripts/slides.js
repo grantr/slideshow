@@ -3,7 +3,7 @@ function updateSlides() {
     lastUpdate = div.attr('data-lastupdate');
 
     if (lastUpdate == undefined) {
-      var url = '/slides/photos';
+      var url = '/ajax/get_photos/';
     } else {
       var url = '/ajax/get_photos/' + lastUpdate
     }
