@@ -6,8 +6,13 @@ class SnapableWorker
     secondly(30)
   end
 
-  def perform(last_occurrence, current_occurrence)
-    url = "https://snapable.com/ajax/get_photos/#{ENV['EVENT_ID']}"
+  def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
+    if current_occurrence < Time.now.to_f - 30
+      logger.warn "skipping old job (#{current_occurrence})"
+      return
+    end
+    event_id = ENV['SNAPABLE_EVENT_ID']
+    url = 'https://snapable.com/ajax/get_photos/#{event_id}'
     if last_occurrence > 0
       url << "/#{last_occurrence-60}"
     end

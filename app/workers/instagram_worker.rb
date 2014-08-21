@@ -6,17 +6,21 @@ class InstagramWorker
     secondly(30)
   end
 
-  def perform(last_occurrence, current_occurrence)
+  def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
+    if current_occurrence < Time.now.to_f - 30
+      logger.warn "skipping old job (#{current_occurrence})"
+      return
+    end
     token = ENV['INSTAGRAM_TOKEN']
-    tag = ENV['INSTAGRAM_TAG']
-    url = "https://api.instagram.com/v1/tags/#{tag}/media/recent?access_token=#{token}"
+    user_id = ENV['INSTAGRAM_USER_ID']
+    url = "https://api.instagram.com/v1/users/#{user_id}/media/recent?access_token=#{token}"
     logger.info "hitting #{url}"
     response = HTTParty.get(url)
     body = ActiveSupport::JSON.decode(response.body)
     if body['data']
       body['data'].each do |object|
         # give objects two tries to be created
-        if true#object['created_time'].to_f >= (last_occurrence - 60)
+        if object['created_time'].to_f >= (last_occurrence - 60)
           photo_url = object['images']['standard_resolution']['url']
           begin
             photo = Photo.new(url: photo_url, source: 'instagram')

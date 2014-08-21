@@ -16,7 +16,7 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         panel "Recent Photos" do
           ul do
-            Photo.order(:created_at).limit(5).map do |photo|
+            Photo.order(created_at: :desc).limit(5).map do |photo|
               li do
                 link_to(image_tag(photo.image.thumb('100x100').url), admin_photo_path(photo))
               end
