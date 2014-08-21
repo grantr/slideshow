@@ -2,7 +2,6 @@ class InboxController < ApplicationController
   include Mandrill::Rails::WebHookProcessor
 
   def handle_inbound(event_payload)
-    Rails.logger.info "Received payload: #{event_payload.inspect}"
     if attachments = event_payload.attachments.presence
       attachments.each do |attachment|
         url = "inbox://#{SecureRandom.uuid}.#{attachment.name}"

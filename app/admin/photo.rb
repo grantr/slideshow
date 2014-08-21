@@ -1,7 +1,11 @@
 ActiveAdmin.register Photo do
 
-  index as: :grid do |photo|
-    link_to image_tag(photo.image.thumb('200x200').url), admin_photo_path(photo)
+  index do |photo|
+    selectable_column
+    column do|photo|
+      link_to image_tag(photo.image.thumb('200x200').url), admin_photo_path(photo)
+    end
+    # link_to image_tag(photo.image.thumb('200x200').url), admin_photo_path(photo)
   end
 
   show do
