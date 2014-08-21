@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'slides#index'
 
   resource :inbox, controller: 'inbox', only: [:show, :create]
+  resource :dropbox, controller: 'dropbox', only: [:show, :create]
 
   require 'sidekiq/web'
   require 'sidetiq/web'
