@@ -20,7 +20,7 @@ class SnapableWorker
       photo_caption = object['caption']
 
       begin
-        photo = Photo.new(url: photo_url, caption: photo_caption)
+        photo = Photo.new(url: photo_url, caption: photo_caption, source: 'snapable')
         photo.image_url = photo_url
 
         if photo.save

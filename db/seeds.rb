@@ -9,7 +9,7 @@
 url = "https://snapable.com/ajax/get_photos/#{ENV['EVENT_ID']}"
 
 puts "Getting photos from snapable..."
-
+#TODO pagination
 response = HTTParty.get(url, headers: {"X-Requested-With" => "XMLHttpRequest"})
 body = ActiveSupport::JSON.decode(response.body)
 body['objects'].each do |object|
@@ -18,11 +18,11 @@ body['objects'].each do |object|
   photo_caption = object['caption']
 
   begin
-    photo = Photo.new(url: photo_url, caption: photo_caption)
+    photo = Photo.new(url: photo_url, caption: photo_caption, source: 'snapable')
     photo.image_url = photo_url
 
     if photo.save
-      puts "Created photo #{photo.id} (#{photo.url})"
+      photos "Created photo #{photo.id} (#{photo.url})"
     end
   rescue ActiveRecord::RecordNotUnique
     # we created this one already, no big deal

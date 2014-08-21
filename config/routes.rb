@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'slides/index'
   root 'slides#index'
 
+  resource :inbox, controller: 'inbox', only: [:show, :create]
+
   require 'sidekiq/web'
   require 'sidetiq/web'
   mount Sidekiq::Web => '/sidekiq'

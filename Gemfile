@@ -27,6 +27,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
 gem 'active_model_serializers'
+gem 'mandrill-rails'
 
 group :development do
   gem 'mysql2'
