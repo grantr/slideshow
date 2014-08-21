@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   get 'slides/index'
   root 'slides#index'
 
+  require 'sidekiq/web'
+  require 'sidetiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

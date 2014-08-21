@@ -19,6 +19,7 @@ gem 'puma'
 
 gem 'yajl-ruby'
 gem 'sidekiq'
+gem 'sinatra' # for sidekiq ui
 gem 'sidetiq'
 gem 'httparty'
 
@@ -28,7 +29,7 @@ end
 
 # heroku
 group :production do
-  gem 'rails_12factor'
   gem 'pg'
 end
 gem 'foreman'
+gem 'rails_12factor'

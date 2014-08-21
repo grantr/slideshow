@@ -9,7 +9,6 @@ function updateSlides() {
     }
 
     $.get(url, function(data){
-      console.log(data);
         for (index = 0; index < data.length; index++) {
             photo = {
               img: data[index].url,

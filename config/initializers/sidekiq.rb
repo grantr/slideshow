@@ -6,3 +6,8 @@ end
 Sidekiq.configure_client do |config|
     config.redis = { :url => redis_url }
 end
+
+Sidetiq.configure do |config|
+  config.utc = true
+  config.worker_history = 0
+end

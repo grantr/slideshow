@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820235302) do
+ActiveRecord::Schema.define(version: 20140821004933) do
 
   create_table "photos", force: true do |t|
     t.string   "url"
@@ -19,5 +19,7 @@ ActiveRecord::Schema.define(version: 20140820235302) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "photos", ["url"], name: "index_photos_on_url", unique: true, using: :btree
 
 end
