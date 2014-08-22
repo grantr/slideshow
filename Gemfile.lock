@@ -79,6 +79,7 @@ GEM
     erubis (2.7.0)
     excon (0.39.5)
     execjs (2.2.1)
+    exifr (1.1.3)
     fog (1.23.0)
       fog-brightbox
       fog-core (~> 1.23)
@@ -259,6 +260,7 @@ DEPENDENCIES
   dragonfly
   dragonfly-s3_data_store
   dropbox-sdk
+  exifr
   foreman
   httparty
   jbuilder (~> 2.0)

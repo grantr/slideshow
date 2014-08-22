@@ -31,6 +31,7 @@ gem 'mandrill-rails'
 gem 'paranoia'
 gem 'dropbox-sdk', require: 'dropbox_sdk'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'exifr'
 
 group :development do
   gem 'mysql2'

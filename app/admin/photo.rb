@@ -1,5 +1,21 @@
 ActiveAdmin.register Photo do
 
+  batch_action :rotate_right do |ids|
+    Photo.find(ids).each do |photo|
+      photo.image.rotate!(90)
+      photo.save
+    end
+    redirect_to collection_path, alert: "rotated right"
+  end
+
+  batch_action :rotate_left do |ids|
+    Photo.find(ids).each do |photo|
+      photo.image.rotate!(-90)
+      photo.save
+    end
+    redirect_to collection_path, alert: "rotated left"
+  end
+
   index do |photo|
     selectable_column
     column do|photo|

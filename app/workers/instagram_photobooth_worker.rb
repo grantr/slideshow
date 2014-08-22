@@ -1,4 +1,4 @@
-class InstagramWorker
+class InstagramPhotoboothWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
@@ -12,8 +12,8 @@ class InstagramWorker
       return
     end
     token = ENV['INSTAGRAM_TOKEN']
-    hashtag = ENV['HASHTAG']
-    url = "https://api.instagram.com/v1/tags/#{hashtag}/media/recent?access_token=#{token}"
+    user_id = ENV['INSTAGRAM_USER_ID']
+    url = "https://api.instagram.com/v1/users/#{user_id}/media/recent?access_token=#{token}"
     logger.info "hitting #{url}"
     response = HTTParty.get(url)
     body = ActiveSupport::JSON.decode(response.body)
@@ -23,7 +23,7 @@ class InstagramWorker
         if object['created_time'].to_f >= (last_occurrence - 60)
           photo_url = object['images']['standard_resolution']['url']
           begin
-            photo = Photo.new(url: photo_url, source: 'instagram')
+            photo = Photo.new(url: photo_url, source: 'instagram-photobooth')
             photo.image_url = photo_url
 
             if photo.save

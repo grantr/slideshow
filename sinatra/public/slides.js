@@ -10,7 +10,6 @@ function updateSlides() {
 
     $.get(url, function(data){
         var resp = $.parseJSON(data);
-        console.log(resp.objects);
         for (index = 0; index < resp.objects.length; index++) {
           console.log(resp.objects[index].resource_uri);
             var photo_id_parts = resp.objects[index].resource_uri.split('/')
@@ -19,8 +18,9 @@ function updateSlides() {
               img: 'https://snapable.com/p/get/' + photo_id + '/orig'
             }
             $fotorama.push(photo);
-            //TODO remove oldest
-            // caption = resp.objects[index].caption;
+            if ($fotorama.size > 50) {
+              $fotorama.shift();
+            }
         }
         var slideCount = $('#fotorama img').length;
     });

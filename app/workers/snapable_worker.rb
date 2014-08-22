@@ -12,7 +12,7 @@ class SnapableWorker
       return
     end
     event_id = ENV['SNAPABLE_EVENT_ID']
-    url = 'https://snapable.com/ajax/get_photos/#{event_id}'
+    url = "https://snapable.com/ajax/get_photos/#{event_id}"
     if last_occurrence > 0
       url << "/#{last_occurrence-60}"
     end
@@ -27,6 +27,10 @@ class SnapableWorker
       begin
         photo = Photo.new(url: photo_url, caption: photo_caption, source: 'snapable')
         photo.image_url = photo_url
+
+        # request the image again with the same dimensions so it's rotated
+        # correctly
+        photo.image_url = "https://snapable.com/p/get/#{photo_id}/#{photo.image.height}x#{photo.image.width}"
 
         if photo.save
           logger.info "Created snapable photo: #{photo.inspect}"

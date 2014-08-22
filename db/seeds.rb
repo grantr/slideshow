@@ -9,6 +9,8 @@
 puts "Getting photos from snapable..."
 SnapableWorker.new.perform
 puts "Getting photos from instagram..."
-InstagramWorker.new.perform
+# InstagramWorker.new.perform
+puts "Getting photos from instagram photobooth..."
+# InstagramPhotoboothWorker.new.perform
 puts "Getting photos from dropbox..."
-DropboxWorker.new.perform
+# DropboxUploadCamWorker.new.perform

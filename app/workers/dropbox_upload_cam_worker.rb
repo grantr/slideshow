@@ -1,4 +1,4 @@
-class DropboxWorker
+class DropboxUploadCamWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
