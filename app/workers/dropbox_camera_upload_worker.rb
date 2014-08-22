@@ -1,4 +1,4 @@
-class DropboxUploadCamWorker < ScheduledWorker
+class DropboxCameraUploadWorker < ScheduledWorker
 
     recurrence backfill: false do
       secondly(30)
@@ -10,7 +10,7 @@ class DropboxUploadCamWorker < ScheduledWorker
     client = DropboxClient.new(token)
 
     logger.info "hitting dropbox metadata"
-    path = "/Apps/UploadCamApp"
+    path = "/Camera Uploads"
     contents = client.metadata(path)['contents']
 
     contents.each do |file|
@@ -20,8 +20,6 @@ class DropboxUploadCamWorker < ScheduledWorker
           photo = Photo.new(url: "file://#{file['path']}", source: 'dropbox')
           photo.image = client.get_file(file['path'])
           photo.image_name = Pathname.new(file['path']).basename.to_s
-          # rotate because UploadCam is dumb
-          photo.image.rotate!(90)
           if photo.save
             logger.info "Created dropbox photo #{photo.inspect}"
           end
