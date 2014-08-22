@@ -17,7 +17,8 @@ function updateSlides() {
         photo_hash = {
           id: photo.id,
           img: photo.url,
-          caption: photo.caption
+          caption: photo.caption,
+          created_at: photo.created_at
         }
         if ($photo_ids[photo.id] == true) {
           for (j = 0; j < $fotorama.size; j++) {
@@ -37,7 +38,19 @@ function updateSlides() {
           }
         }
         if ($fotorama.size > 50) {
-          $fotorama.shift();
+          grace_time = (new Date().getTime() / 1000) - (30*60);
+          $fotorama.sort(function(a,b) {
+            if (a.created_at > b.created_at) return 1;
+            if a.created_at < b.created_at) return -1;
+            return 0;
+          });
+
+          for (k = 0; (k < $fotorama.size || $fotorama.size <= 50; k++) {
+            photo_hash = $fotorama.data[k];
+            if (photo_hash.created_at < grace_time) {
+              $fotorama.splice(k, 1);
+            }
+          }
         }
       }
       div.attr('data-lastupdate', new Date().getTime() / 1000)

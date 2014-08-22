@@ -7,10 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 puts "Getting photos from snapable..."
-SnapableWorker.new.perform
+# SnapableWorker.new.perform
 puts "Getting photos from instagram..."
-InstagramWorker.new.perform
+# InstagramWorker.new.perform
 puts "Getting photos from instagram photobooth..."
-InstagramPhotoboothWorker.new.perform
+# InstagramPhotoboothWorker.new.perform
 puts "Getting photos from dropbox..."
-DropboxUploadCamWorker.new.perform
+# DropboxUploadCamWorker.new.perform
+DropboxCameraUploadWorker.perform
+DropboxSeedWorker.perform

@@ -1,3 +1,4 @@
 don't delete photos newer than x minutes even if >50
-snapable rotate
 install chrome extension on kate's computer
+
+if more than 50 photos, cull any older than 30 minutes, but no younger than 15
