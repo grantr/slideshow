@@ -33,6 +33,7 @@ gem 'paranoia'
 gem 'dropbox-sdk', require: 'dropbox_sdk'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'exifr'
+gem 'instagram'
 
 group :development do
   gem 'mysql2'

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   require 'sidetiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
+  get 'instagram/connect'
+  get 'instagram/callback'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

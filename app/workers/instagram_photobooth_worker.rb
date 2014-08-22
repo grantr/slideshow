@@ -8,16 +8,13 @@ class InstagramPhotoboothWorker < ScheduledWorker
     return unless super
     token = ENV['INSTAGRAM_TOKEN']
     user_id = ENV['INSTAGRAM_USER_ID']
-    url = "https://api.instagram.com/v1/users/#{user_id}/media/recent?access_token=#{token}"
-    logger.info "hitting #{url}"
-    response = HTTParty.get(url)
-    logger.info "instagram response: #{response.code}"
-    body = ActiveSupport::JSON.decode(response.body)
-    if body['data']
-      body['data'].each do |object|
+    client = Instagram.client(access_token: token)
+    logger.info "checking instagram photo booth"
+    media = client.user_recent_media(user_id)
+    media.each do |post|
         # give objects two tries to be created
-        if object['created_time'].to_f >= (last_occurrence - 60)
-          photo_url = object['images']['standard_resolution']['url']
+        if post.created_time.to_i >= (last_occurrence - 60)
+          photo_url = post.images.standard_resolution.url
           begin
             photo = Photo.new(url: photo_url, source: 'instagram-photobooth')
             photo.image_url = photo_url
