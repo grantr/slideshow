@@ -9,6 +9,7 @@ class InstagramController < ApplicationController
     Sidekiq.redis_pool.with do |redis|
       redis.set 'instagram_token', response.access_token
     end
+    logger.info "Stored instagram token #{response.access_token}"
     head :ok
   end
 
