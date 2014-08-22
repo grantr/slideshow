@@ -56,7 +56,7 @@ function updateSlides() {
           photo_hash = $fotorama.data[0];
           if (photo_hash.created_at >= grace_time) break;
           age = ((new Date().getTime() / 1000) - photo_hash.created_at) / 60;
-          console.log("Culling " + photo.id + " (" + age + ' minutes old)');
+          console.log("Culling " + photo_hash.id + " (" + age + ' minutes old)');
           $photo_ids[photo.id] = false;
           $fotorama.shift();
         }
