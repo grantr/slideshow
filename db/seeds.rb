@@ -14,5 +14,5 @@ puts "Getting photos from instagram photobooth..."
 # InstagramPhotoboothWorker.new.perform
 puts "Getting photos from dropbox..."
 # DropboxUploadCamWorker.new.perform
-DropboxCameraUploadWorker.perform
-DropboxSeedWorker.perform
+# DropboxCameraUploadWorker.new.perform
+DropboxSeedWorker.new.perform
