@@ -11,7 +11,8 @@ function updateSlides() {
     $.get(url, function(data){
       console.log(data);
 
-      photos = data.photos;
+      var prior_size = $fotorama.size;
+      var photos = data.photos;
       for (index = 0; index < photos.length; index++) {
         photo = photos[index];
         photo_hash = {
@@ -61,7 +62,11 @@ function updateSlides() {
         }
         console.log("Culled to size " + $fotorama.size);
       }
-      div.attr('data-lastupdate', new Date().getTime() / 1000)
+      if ($fotorama.size != prior_size) {
+        console.log("Shuffling");
+        $fotorama.shuffle();
+      }
+      div.attr('data-lastupdate', new Date().getTime() / 1000);
     });
 }
 
