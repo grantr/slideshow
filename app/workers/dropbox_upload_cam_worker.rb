@@ -1,16 +1,11 @@
-class DropboxUploadCamWorker
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
+class DropboxUploadCamWorker < ScheduledWorker
 
-  recurrence backfill: false do
-    secondly(30)
-  end
+    recurrence backfill: false do
+      secondly(30)
+    end
 
   def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
-    if current_occurrence < Time.now.to_f - 30
-      logger.warn "skipping old job (#{current_occurrence})"
-      return
-    end
+    return unless super
     token = ENV['DROPBOX_TOKEN']
     client = DropboxClient.new(token)
 

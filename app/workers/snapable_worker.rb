@@ -1,16 +1,11 @@
-class SnapableWorker
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
+class SnapableWorker < ScheduledWorker
 
-  recurrence backfill: false do
-    secondly(30)
-  end
-
-  def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
-    if current_occurrence < Time.now.to_f - 30
-      logger.warn "skipping old job (#{current_occurrence})"
-      return
+    recurrence backfill: false do
+      secondly(30)
     end
+    
+  def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
+    return unless super
     event_id = ENV['SNAPABLE_EVENT_ID']
     url = "https://snapable.com/ajax/get_photos/#{event_id}"
     if last_occurrence > 0
@@ -30,6 +25,7 @@ class SnapableWorker
 
         # request the image again with the same dimensions so it's rotated
         # correctly
+        # maybe?
         photo.image_url = "https://snapable.com/p/get/#{photo_id}/#{photo.image.width}x#{photo.image.height}"
 
         if photo.save

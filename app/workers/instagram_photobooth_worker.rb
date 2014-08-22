@@ -1,16 +1,11 @@
-class InstagramPhotoboothWorker
-  include Sidekiq::Worker
-  include Sidetiq::Schedulable
+class InstagramPhotoboothWorker < ScheduledWorker
 
-  recurrence backfill: false do
-    secondly(30)
-  end
+    recurrence backfill: false do
+      secondly(30)
+    end
 
   def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
-    if current_occurrence < Time.now.to_f - 30
-      logger.warn "skipping old job (#{current_occurrence})"
-      return
-    end
+    return unless super
     token = ENV['INSTAGRAM_TOKEN']
     user_id = ENV['INSTAGRAM_USER_ID']
     url = "https://api.instagram.com/v1/users/#{user_id}/media/recent?access_token=#{token}"

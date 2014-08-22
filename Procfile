@@ -1,2 +1,2 @@
-web: bundle exec puma -p $PORT
+web: bundle exec unicorn -p $PORT
 worker: bundle exec sidekiq
