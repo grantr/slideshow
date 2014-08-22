@@ -6,14 +6,9 @@ Dragonfly.app.configure do
 
   analyser :orientation do |content|
     identify_command = content.env[:identify_command] || 'identify'
-    details = content.shell_eval do |path|
-      "#{identify_command} -ping -format '%[EXIF:Orientation] %[orientation]' #{path}"
+    content.shell_eval do |path|
+      "#{identify_command} -ping -format '%[orientation]' #{path}"
     end
-    # exif_orientation, orientation = details.split
-    # {
-    #   exif_orientation: exif_orientation,
-    #   orientation: orientation
-    # }
   end
 
   protect_from_dos_attacks true

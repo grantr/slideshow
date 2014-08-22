@@ -30,7 +30,7 @@ class SnapableWorker
 
         # request the image again with the same dimensions so it's rotated
         # correctly
-        photo.image_url = "https://snapable.com/p/get/#{photo_id}/#{photo.image.height}x#{photo.image.width}"
+        photo.image_url = "https://snapable.com/p/get/#{photo_id}/#{photo.image.width}x#{photo.image.height}"
 
         if photo.save
           logger.info "Created snapable photo: #{photo.inspect}"
