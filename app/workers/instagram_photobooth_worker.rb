@@ -11,6 +11,7 @@ class InstagramPhotoboothWorker < ScheduledWorker
     url = "https://api.instagram.com/v1/users/#{user_id}/media/recent?access_token=#{token}"
     logger.info "hitting #{url}"
     response = HTTParty.get(url)
+    logger.info "instagram response: #{response.code}"
     body = ActiveSupport::JSON.decode(response.body)
     if body['data']
       body['data'].each do |object|

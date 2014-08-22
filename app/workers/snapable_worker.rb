@@ -3,7 +3,7 @@ class SnapableWorker < ScheduledWorker
     recurrence backfill: false do
       secondly(30)
     end
-    
+
   def perform(last_occurrence=0, current_occurrence=Time.now.to_f)
     return unless super
     event_id = ENV['SNAPABLE_EVENT_ID']
@@ -13,6 +13,7 @@ class SnapableWorker < ScheduledWorker
     end
     logger.info "hitting #{url}"
     response = HTTParty.get(url, headers: {"X-Requested-With" => "XMLHttpRequest"})
+    logger.info "snapable response: #{response.code}"
     body = ActiveSupport::JSON.decode(response.body)
     body['objects'].each do |object|
       photo_id = object['resource_uri'].split('/').last
