@@ -42,7 +42,7 @@ function updateSlides() {
           }
         }
       }
-      var max_size = 85;
+      var max_size = 412;
       if ($fotorama.size > max_size) {
         console.log("Culling down from " + $fotorama.size);
         grace_time = (new Date().getTime() / 1000) - (30*60);
