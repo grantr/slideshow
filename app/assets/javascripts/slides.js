@@ -42,8 +42,8 @@ function updateSlides() {
           }
         }
       }
-      var max_size = 412;
-      if ($fotorama.size > max_size) {
+      var max_size = 85;
+      if (false && $fotorama.size > max_size) {
         console.log("Culling down from " + $fotorama.size);
         grace_time = (new Date().getTime() / 1000) - (30*60);
         $fotorama.sort(function(a,b) {
