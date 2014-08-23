@@ -64,7 +64,7 @@ function updateSlides() {
       }
       if ($fotorama.size != prior_size) {
         console.log("Shuffling");
-        $fotorama.shuffle();
+        // $fotorama.shuffle();
       }
       div.attr('data-lastupdate', new Date().getTime() / 1000);
     });
