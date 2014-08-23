@@ -14,19 +14,20 @@ class DropboxCameraUploadWorker < ScheduledWorker
     contents = client.metadata(path)['contents']
 
     contents.each do |file|
-      logger.info "checking #{file['client_mtime']}"
-      if Time.parse(file['client_mtime'] || file['modified']).to_f >= (last_occurrence - 60)
+      # logger.info "checking #{file['client_mtime']}"
+      # if Time.parse(file['client_mtime'] || file['modified']).to_f >= (last_occurrence - 60)
         begin
           photo = Photo.new(url: "file://#{file['path']}", source: 'dropbox')
           photo.image = client.get_file(file['path'])
           photo.image_name = Pathname.new(file['path']).basename.to_s
           if photo.save
             logger.info "Created dropbox photo #{photo.inspect}"
+            photo.update_attribute(:created_at, Time.parse(file['client_mtime']))
           end
         rescue ActiveRecord::RecordNotUnique
           # we created this one already, no big deal
         end
-      end
+      # end
     end
   end
 end
